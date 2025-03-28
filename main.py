@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import ttk  # Import ttk for Combobox
 
 # Define currency values and conversion rates (EUR as the base)
 values = ["eur", "dollar", "yen", "GBP", "CHF", "MXN", "CNY"]
@@ -21,14 +22,16 @@ translations = {
     "invalid_input": {"en": "Invalid input. Enter a valid number.", "de": "Nicht gültiger Wert"},
     "select_currencies": {"en": "Please select valid currencies!", "de": "richtige Währungen wechseln"}
 }
+
 background = "#4f4f4f"
 foreground = "white"
 background_btn = "#616060"
+
 class Currency:
     def __init__(self, root):
         self.root = root
         self.root.title("Currency Converter")
-        self.root.geometry('400x600')
+        self.root.geometry('350x320')
         self.root.configure(bg='#4f4f4f')
 
         self.language = "en"  # Default language is English
@@ -39,17 +42,32 @@ class Currency:
         self.entry = tk.Entry(root, bg=background_btn, fg=foreground)
         self.entry.pack(pady=5)
 
-        self.from_currency = tk.StringVar(value="eur")  # Default: EUR
         self.from_currency_label = tk.Label(root, text=translations["from_currency"][self.language], bg=background, fg=foreground)
         self.from_currency_label.pack()
 
-        self.create_checkbuttons(self.from_currency)
+        combostyle = ttk.Style()
+        combostyle.theme_create('combostyle', parent='alt',
+                         settings = {'TCombobox':
+                                     {'configure':
+                                      {'selectbackground': background_btn,
+                                       'fieldbackground': background_btn,
+                                       'background': background_btn,
+                                       'foreground' : foreground
+                                       }}}
+                         )
+        combostyle.theme_use('combostyle') 
 
-        self.to_currency = tk.StringVar(value="dollar")  # Default: USD
+
+        self.from_currency_combobox = ttk.Combobox(root, values=values, state="readonly", width=15)
+        self.from_currency_combobox.set("eur")  # Default to EUR
+        self.from_currency_combobox.pack(pady=5)
+
         self.to_currency_label = tk.Label(root, text=translations["to_currency"][self.language], bg=background, fg=foreground)
         self.to_currency_label.pack()
 
-        self.create_checkbuttons(self.to_currency)
+        self.to_currency_combobox = ttk.Combobox(root, values=values, state="readonly", width=15)
+        self.to_currency_combobox.set("dollar")  # Default to USD
+        self.to_currency_combobox.pack(pady=5)
 
         self.convert_button = tk.Button(root, text=translations["convert"][self.language], command=self.convert_currency, bg=background_btn, fg=foreground)
         self.convert_button.pack(pady=10)
@@ -60,18 +78,11 @@ class Currency:
         self.language_button = tk.Button(root, text="Change Language", command=self.change_language, bg=background, fg=foreground)
         self.language_button.pack(pady=10)
 
-    def create_checkbuttons(self, variable):
-        frame = tk.Frame(self.root, bg=background)
-        frame.pack()
-        for value in values:
-            chk = tk.Checkbutton(frame, text=value, variable=variable, onvalue=value, offvalue="", bg=background, fg=foreground, selectcolor=background_btn)
-            chk.pack(anchor="w", padx=10)
-
     def convert_currency(self):
         try:
             num = float(self.entry.get())  # Convert input to float
-            from_currency = self.from_currency.get()
-            to_currency = self.to_currency.get()
+            from_currency = self.from_currency_combobox.get()
+            to_currency = self.to_currency_combobox.get()
 
             if from_currency not in values or to_currency not in values:
                 self.output_label.config(text=translations["select_currencies"][self.language])
@@ -87,7 +98,7 @@ class Currency:
             self.output_label.config(text=translations["invalid_input"][self.language])
 
     def change_language(self):
-        self.language = "de" if self.language == "en" else "en" #Toggle
+        self.language = "de" if self.language == "en" else "en"  # Toggle
         self.update_language()
 
     def update_language(self):
