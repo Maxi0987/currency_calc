@@ -3,9 +3,9 @@ import tkinter as tk
 # Define currency values and conversion rates (EUR as the base)
 values = ["eur", "dollar", "yen", "GBP", "CHF", "MXN", "CNY"]
 conversion_rates = {
-    "eur": 1,       # Base currency (1 EUR)
-    "dollar": 1.18, # 1 EUR = 1.18 USD
-    "yen": 129.53,   # 1 EUR = 129.53 JPY
+    "eur": 1,      
+    "dollar": 1.18, 
+    "yen": 129.53,   
     "GBP": 0.85,
     "CHF": 1.61,
     "MXN": 19.94,
