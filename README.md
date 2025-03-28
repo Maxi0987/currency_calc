@@ -8,6 +8,10 @@ This is a simple **Currency Converter** application built using **Tkinter** in P
 - Euro (EUR)
 - US Dollar (USD)
 - Japanese Yen (JPY)
+- Pound (GBP)
+- Swiss Franc (CHF)
+- Mexican Peso (MXN)
+- Chinese Yuan (CNY)
 
 ## Features
 - Convert between **EUR**, **USD**, and **JPY**.
@@ -36,15 +40,3 @@ If you enter `100` in the amount field and select:
 - **To Currency**: USD
 
 It will output: `100 EUR = 118.00 USD`.
-
-## Requirements
-
-- Python 3.x
-- Tkinter (typically comes pre-installed with Python)
-
-## Running the Application
-
-1. Clone or download the repository.
-2. Run the script with Python:  
-   ```bash
-   python currency_converter.py

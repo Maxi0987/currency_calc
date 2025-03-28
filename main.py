@@ -5,7 +5,11 @@ values = ["eur", "dollar", "yen"]
 conversion_rates = {
     "eur": 1,       # Base currency (1 EUR)
     "dollar": 1.18, # 1 EUR = 1.18 USD
-    "yen": 129.53   # 1 EUR = 129.53 JPY
+    "yen": 129.53,   # 1 EUR = 129.53 JPY
+    "GBP": 0.85,
+    "CHF": 1.61,
+    "MXN": 19.94,
+    "CNY": 9.43
 }
 
 class Currency:
@@ -44,7 +48,7 @@ class Currency:
             num = float(self.entry.get())  # Convert input to float
             from_currency = self.from_currency.get()
             to_currency = self.to_currency.get()
-            
+
             if from_currency not in values or to_currency not in values:
                 self.output_label.config(text="Please select valid currencies!")
                 return
