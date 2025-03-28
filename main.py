@@ -21,47 +21,50 @@ translations = {
     "invalid_input": {"en": "Invalid input. Enter a valid number.", "de": "Nicht gültiger Wert"},
     "select_currencies": {"en": "Please select valid currencies!", "de": "richtige Währungen wechseln"}
 }
-
+background = "#4f4f4f"
+foreground = "white"
+background_btn = "#616060"
 class Currency:
     def __init__(self, root):
         self.root = root
         self.root.title("Currency Converter")
         self.root.geometry('400x600')
+        self.root.configure(bg='#4f4f4f')
 
         self.language = "en"  # Default language is English
 
-        self.entry_label = tk.Label(root, text=translations["num"][self.language])
+        self.entry_label = tk.Label(root, text=translations["num"][self.language], bg=background, fg=foreground)
         self.entry_label.pack(pady=5)
 
-        self.entry = tk.Entry(root)
+        self.entry = tk.Entry(root, bg=background_btn, fg=foreground)
         self.entry.pack(pady=5)
 
         self.from_currency = tk.StringVar(value="eur")  # Default: EUR
-        self.from_currency_label = tk.Label(root, text=translations["from_currency"][self.language])
+        self.from_currency_label = tk.Label(root, text=translations["from_currency"][self.language], bg=background, fg=foreground)
         self.from_currency_label.pack()
 
         self.create_checkbuttons(self.from_currency)
 
         self.to_currency = tk.StringVar(value="dollar")  # Default: USD
-        self.to_currency_label = tk.Label(root, text=translations["to_currency"][self.language])
+        self.to_currency_label = tk.Label(root, text=translations["to_currency"][self.language], bg=background, fg=foreground)
         self.to_currency_label.pack()
 
         self.create_checkbuttons(self.to_currency)
 
-        self.convert_button = tk.Button(root, text=translations["convert"][self.language], command=self.convert_currency)
+        self.convert_button = tk.Button(root, text=translations["convert"][self.language], command=self.convert_currency, bg=background_btn, fg=foreground)
         self.convert_button.pack(pady=10)
 
-        self.output_label = tk.Label(root, text=translations["output"][self.language])
+        self.output_label = tk.Label(root, text=translations["output"][self.language], bg=background, fg=foreground)
         self.output_label.pack(pady=10)
 
-        self.language_button = tk.Button(root, text="Change Language", command=self.change_language)
+        self.language_button = tk.Button(root, text="Change Language", command=self.change_language, bg=background, fg=foreground)
         self.language_button.pack(pady=10)
 
     def create_checkbuttons(self, variable):
-        frame = tk.Frame(self.root)
+        frame = tk.Frame(self.root, bg=background)
         frame.pack()
         for value in values:
-            chk = tk.Checkbutton(frame, text=value, variable=variable, onvalue=value, offvalue="")
+            chk = tk.Checkbutton(frame, text=value, variable=variable, onvalue=value, offvalue="", bg=background, fg=foreground, selectcolor=background_btn)
             chk.pack(anchor="w", padx=10)
 
     def convert_currency(self):
