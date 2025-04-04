@@ -31,7 +31,7 @@ class Currency:
     def __init__(self, root):
         self.root = root
         self.root.title("Currency Converter")
-        self.root.geometry('350x320')
+        self.root.geometry('350x350')  # Adjusted height to fit the new button
         self.root.configure(bg='#4f4f4f')
 
         self.language = "en"  # Default language is English
@@ -55,8 +55,7 @@ class Currency:
                                        'foreground' : foreground
                                        }}}
                          )
-        combostyle.theme_use('combostyle') 
-
+        combostyle.theme_use('combostyle')  # Using the custom theme
 
         self.from_currency_combobox = ttk.Combobox(root, values=values, state="readonly", width=15)
         self.from_currency_combobox.set("eur")  # Default to EUR
@@ -77,6 +76,9 @@ class Currency:
 
         self.language_button = tk.Button(root, text="Change Language", command=self.change_language, bg=background, fg=foreground)
         self.language_button.pack(pady=10)
+
+        self.self_destruct_button = tk.Button(root, text="Self Destruct", command=self.self_destruct, bg="red", fg="white")
+        self.self_destruct_button.pack(pady=10)
 
     def convert_currency(self):
         try:
@@ -108,6 +110,9 @@ class Currency:
         self.convert_button.config(text=translations["convert"][self.language])
         self.output_label.config(text=translations["output"][self.language])
         self.language_button.config(text="Change Language")
+
+    def self_destruct(self):
+        self.root.quit()
 
 if __name__ == "__main__":
     root = tk.Tk()
